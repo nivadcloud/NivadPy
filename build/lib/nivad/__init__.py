@@ -97,4 +97,4 @@ class NivadAPI:
 
         return response
 
-__all__ = [NivadAPI]
+__all__ = [NivadAPI, NivadNotificationAPI]

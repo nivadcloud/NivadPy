@@ -10,5 +10,10 @@ setup(
     author_email='mjafar@nivad.io',
     license='GPL',
     packages=['nivad'],
+    install_requires=[
+        'urllib3',
+        'PyJWT',
+        'certifi'
+    ],
     zip_safe=False
 )
