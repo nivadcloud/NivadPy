@@ -54,7 +54,7 @@ provides you with a configured `NivadNotificationAPI` instance.
     else:
         print('Error.', result['errors'])
 
-#### Notification click actions
+##### Notification click actions
 You can specify the action to perform in user's device when (s)he clicks on notification message.
 supported actions in current version of API are:
 * Open URL
@@ -67,7 +67,10 @@ Future actions will be:
 * Run a `Service` in background to execute arbitrary pre defined code.
 * Open an `Activity`.
 
-Both will have the ability to specify `Intent` extra data.
+Both will have the ability to specify `Intent` extra data. These actions are available through web interface and will be available in REST API soon.
+
+##### Notification LED Colors
+Use `NotificationLEDColor` to specify device LED blinking color upon arrival of this push notification message.
 
 #### Get notification data
 
