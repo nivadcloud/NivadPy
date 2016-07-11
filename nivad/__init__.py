@@ -84,6 +84,10 @@ class NivadAPI:
 
         headers.update(extra_headers)
 
+        if '{' in url:
+            url = url.format(**data)
+            # TODO: remove formatted data from dictionary
+
         request_url = '%s%s' % (_get_connection_url(), url)
 
         logger.info("Making %s request to %s -- Headers: %s" % (method, request_url, headers))

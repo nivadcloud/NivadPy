@@ -79,7 +79,8 @@ class NivadNotificationAPI:
     Wrapper for notifications API Endpoint
     """
     URLS = {
-        'send_notification': 'notification/'
+        'send_notification': 'notification/',
+        'get_notification_info': 'notification/{notification_id}/'
     }
 
     def __init__(self, nivad_api):
@@ -96,17 +97,21 @@ class NivadNotificationAPI:
 
         response = self.api.post(
             NivadNotificationAPI.URLS['send_notification'],
-            data=json.dumps(notification_object.to_dict()),
+            data=json.dumps({
+                'message': notification_object.to_dict(),
+                # TODO: add filters
+            }),
             token_type='push_api'
         )
 
         return json.loads(response.data.decode('utf-8'))
 
     def get_info(self, notification_id):
-        assert notification_id is not None and type(notification_id) == int
+        assert notification_id is not None
+        notification_id = str(notification_id)
 
         response = json.loads(self.api.get(
-            NivadNotificationAPI.URLS['send_notification'],
+            NivadNotificationAPI.URLS['get_notification_info'],
             data={'notification_id': str(notification_id)},
             token_type='push_api'
         ).data.decode('utf-8'))
@@ -148,7 +153,11 @@ class NotificationLEDColor:
     green = '00ff00'
     lime = 'd2ff00'
 
+
+# TODO: use a real test runner
 """
+Test sample:
+
 import nivad
 from nivad.push_click_action import *
 from nivad.push import *
@@ -156,6 +165,7 @@ from nivad.push import *
 api = nivad.NivadAPI('5d9dc126-8583-4d0e-b325-b76d107a8d32', push_api_secret='YmMolkX2PweqqkTeIOjDQMX4KuITTZeTr3JcV6bFz9jXoDrUrYSDHnM9RKTNvfUV')
 notification = api.get_notification_api()
 message = NotificationObject('title', 'text', full_title='full title', full_text='full text', vibration=False, status_bar_text='sb text', led_color=NotificationLEDColor.red)
+message = NotificationObject('title, for tag2', 'text', vibration=False, led_color=NotificationLEDColor.pink)
 notification.send(message)
-
+notification.get_info('bd721884-a02e-4543-bd6a-4f1f6068522e')
 """
