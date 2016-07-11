@@ -2,3 +2,4 @@
 .pypirc
 dist
 build
+nivad.egg-info
