@@ -78,10 +78,15 @@ Use `NotificationLEDColor` to specify device LED blinking color upon arrival of 
 
     info.success  # True,
     info.notification_id  # bd721884-a02e-4543-bd6a-4f1f6068522e
-    info.status  # ارسال شده
+    info.status  # sent
     info.device_count  # 676230
     info.send_time  # 2016-07-08T18:48:30.735854+00:00
     info.message_title  # Message Title
     info.message_text  # Message Text
     # And more `info.message_***' stuff
 
+Possible values for `status` are:
+ * in-queue
+ * sending
+ * sent
+ * error
