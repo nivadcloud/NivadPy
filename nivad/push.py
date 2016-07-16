@@ -3,6 +3,7 @@ import logging
 
 import re
 
+from nivad.push_filters import NoFilter
 from .push_click_action import NoAction, ClickAction
 
 logger = logging.getLogger("nivad")
@@ -86,7 +87,7 @@ class NivadNotificationAPI:
     def __init__(self, nivad_api):
         self.api = nivad_api
 
-    def send(self, notification_object):
+    def send(self, notification_object, filters=[NoFilter()]):
         """
         Send a notification to all devices
 
@@ -95,12 +96,18 @@ class NivadNotificationAPI:
         """
         assert notification_object.is_valid(), 'Notification object is invalid'
 
+        filter = dict()
+        for f in filters:
+            filter.update(f.to_json())
+
+        payload = dict()
+        payload['message'] = notification_object.to_dict()
+        if len(filter):
+            payload['filter'] = filter
+
         response = self.api.post(
             NivadNotificationAPI.URLS['send_notification'],
-            data=json.dumps({
-                'message': notification_object.to_dict(),
-                # TODO: add filters
-            }),
+            data=json.dumps(payload),
             token_type='push_api'
         )
 
