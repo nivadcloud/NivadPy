@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(
-    version='0.0.2',
+    version='0.0.3',
     name='nivad',
     description='Nivad server-server api package',
     url='https://github.com/NivadCloud/NivadPy',
